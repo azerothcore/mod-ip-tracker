@@ -23,8 +23,6 @@ mod-ip-tracker requires:
 
 ## Usage
 
-Wording: given 2 accounts, they are **linked** if they accessed the same IP at some point of time.
-
 Get by name: select all IPs of a given account name `ACCOUNT_NAME`
 
 ```sql
@@ -32,6 +30,8 @@ SELECT account.username, account_ip.* FROM account
 INNER JOIN account_ip ON account.id = account_ip.account
 WHERE account.username = 'ACCOUNT_NAME';
 ```
+
+Wording: given 2 accounts, they are **linked** if they accessed the same IP at some point of time.
 
 Level 1: select all accounts/IPs linked to a given account ID `123`
 
@@ -56,4 +56,6 @@ WHERE ip IN (
 );
 ```
 
-You can build up more levels from here.
+You can build up more levels from here, see:
+
+- https://stackoverflow.com/questions/66723604/get-all-accounts-linked-to-a-certain-account-via-ip
