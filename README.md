@@ -20,3 +20,9 @@ mod-ip-tracker requires:
 3) Re-run cmake and launch a clean build of AzerothCore
 4) Configure `ip-tracker.conf`
 ```
+
+## Usage
+
+```sql
+SELECT account.username, account_ip.* FROM account INNER JOIN account_ip ON account.id = account_ip.account WHERE account.username = 'ACCOUNT_NAME';
+```
