@@ -48,8 +48,10 @@ Level 2: select all accounts/IPs linked to all accounts linked to a given accoun
 ```sql
 SELECT account.username, account_ip.* FROM account_ip INNER JOIN account ON account.id = account_ip.account
 WHERE ip IN (
-	SELECT ip FROM account_ip WHERE ip IN (
-		SELECT ip FROM account_ip WHERE account = 123
+	SELECT ip FROM account_ip WHERE account IN (
+		SELECT account FROM account_ip WHERE ip IN (
+			SELECT ip FROM account_ip WHERE account = 12
+		)
 	)
 );
 ```
