@@ -20,3 +20,40 @@ mod-ip-tracker requires:
 3) Re-run cmake and launch a clean build of AzerothCore
 4) Configure `ip-tracker.conf`
 ```
+
+## Usage
+
+Wording: given 2 accounts, they are **linked** if they accessed the same IP at some point of time.
+
+Get by name: select all IPs of a given account name `ACCOUNT_NAME`
+
+```sql
+SELECT account.username, account_ip.* FROM account 
+INNER JOIN account_ip ON account.id = account_ip.account
+WHERE account.username = 'ACCOUNT_NAME';
+```
+
+Level 1: select all accounts/IPs linked to a given account ID `123`
+
+```sql
+SELECT account.username, account_ip.* FROM account_ip 
+INNER JOIN account ON account.id = account_ip.account
+WHERE ip IN (
+    SELECT ip FROM account_ip WHERE account = 123
+);
+```
+
+Level 2: select all accounts/IPs linked to all accounts linked to a given account ID `123`
+
+```sql
+SELECT account.username, account_ip.* FROM account_ip INNER JOIN account ON account.id = account_ip.account
+WHERE ip IN (
+	SELECT ip FROM account_ip WHERE account IN (
+		SELECT account FROM account_ip WHERE ip IN (
+			SELECT ip FROM account_ip WHERE account = 123
+		)
+	)
+);
+```
+
+You can build up more levels from here.
