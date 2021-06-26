@@ -1,6 +1,6 @@
 
+#include "DatabaseEnv.h"
 #include "Config.h"
-#include "LoginDatabase.h"
 #include "ScriptMgr.h"
 
 #define CONF_ENABLE_TRACKER "IpTracker.Enabled"
@@ -20,7 +20,7 @@ public:
             return;
         }
 
-        LoginDatabase.AsyncPQuery(QUERY_UPDATE_IP, accountId, ip.c_str());
+        LoginDatabase.AsyncQuery(Acore::StringFormat(QUERY_UPDATE_IP, accountId, ip.c_str()).c_str());
     }
 
     void OnStartup() override
