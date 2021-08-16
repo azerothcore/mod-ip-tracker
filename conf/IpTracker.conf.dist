@@ -1,5 +1,10 @@
-[worldserver]
+#
+# Copyright (C) 2016+ AzerothCore <www.azerothcore.org>, released under GNU AGPL v3 license: https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3
+#
 
+########################################
+# IpTracker module configuration
+########################################
 #
 #    IpTracker.Enabled
 #        Description: Enable the mod-ip-tracker
