@@ -26,16 +26,16 @@ public:
 
     void OnStartup() override
     {
-        const auto DAYS = sConfigMgr->GetOption<int32>("IpTracker.CleanOlderThanDays", 0);
+        const auto cleanOlderThanDays = sConfigMgr->GetOption<int32>("IpTracker.CleanOlderThanDays", 0);
 
-        if (!sConfigMgr->GetOption<bool>("IpTracker.Enabled", false) || DAYS == 0)
+        if (!sConfigMgr->GetOption<bool>("IpTracker.Enabled", false) || !cleanOlderThanDays)
         {
             return;
         }
 
-        LoginDatabase.PQuery("DELETE FROM `account_ip` WHERE `last_time` < (DATE_SUB(NOW(), INTERVAL %u DAY))", DAYS);
+        LoginDatabase.PQuery("DELETE FROM `account_ip` WHERE `last_time` < (DATE_SUB(NOW(), INTERVAL %u DAY))", cleanOlderThanDays);
 
-        FMT_LOG_INFO("modules", ">> IP Tracker: deleted all rows older than {} days", DAYS);
+        LOG_INFO("module", ">> IP Tracker: deleted all rows older than {} days", cleanOlderThanDays);
     }
 };
 
