@@ -33,7 +33,7 @@ public:
             return;
         }
 
-        LoginDatabase.PQuery("DELETE FROM `account_ip` WHERE `last_time` < (DATE_SUB(NOW(), INTERVAL %u DAY))", cleanOlderThanDays);
+        LoginDatabase.Query("DELETE FROM `account_ip` WHERE `last_time` < (DATE_SUB(NOW(), INTERVAL {} DAY))", cleanOlderThanDays);
 
         LOG_INFO("module", ">> IP Tracker: deleted all rows older than {} days", cleanOlderThanDays);
     }
