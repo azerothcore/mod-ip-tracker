@@ -8,10 +8,10 @@
 #include "ScriptMgr.h"
 #include "StringFormat.h"
 
-class IpTracker : public AccountScript, public WorldScript
+class IpTracker : public AccountScript
 {
 public:
-    IpTracker() : AccountScript("IpTracker"), WorldScript("IpTracker") { }
+    IpTracker() : AccountScript("IpTracker") { }
 
     void OnLastIpUpdate(uint32 accountId, std::string ip) override
     {
@@ -23,6 +23,12 @@ public:
         std::string query = Acore::StringFormatFmt("INSERT INTO `account_ip` (`account`, `ip`, `first_time`, `last_time`) VALUES ({}, '{}', NOW(), NOW()) ON DUPLICATE KEY UPDATE `last_time` = NOW()", accountId, ip);
         LoginDatabase.Execute(query.c_str());
     }
+};
+
+class IpTrackerWorldScript : public WorldScript
+{
+public:
+    IpTrackerWorldScript() : WorldScript("IpTracker") { }
 
     void OnStartup() override
     {
@@ -42,4 +48,5 @@ public:
 void AddSC_IpTracker()
 {
     new IpTracker();
+    new IpTrackerWorldScript();
 }
