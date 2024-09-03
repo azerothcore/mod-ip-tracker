@@ -20,7 +20,7 @@ public:
             return;
         }
 
-        std::string query = Acore::StringFormatFmt("INSERT INTO `account_ip` (`account`, `ip`, `first_time`, `last_time`) VALUES ({}, '{}', NOW(), NOW()) ON DUPLICATE KEY UPDATE `last_time` = NOW()", accountId, ip);
+        std::string query = Acore::StringFormat("INSERT INTO `account_ip` (`account`, `ip`, `first_time`, `last_time`) VALUES ({}, '{}', NOW(), NOW()) ON DUPLICATE KEY UPDATE `last_time` = NOW()", accountId, ip);
         LoginDatabase.Execute(query.c_str());
     }
 };
