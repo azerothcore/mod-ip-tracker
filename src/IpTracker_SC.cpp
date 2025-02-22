@@ -11,7 +11,9 @@
 class IpTracker : public AccountScript
 {
 public:
-    IpTracker() : AccountScript("IpTracker") { }
+    IpTracker() : AccountScript("IpTracker", {
+        ACCOUNTHOOK_ON_LAST_IP_UPDATE
+    }) { }
 
     void OnLastIpUpdate(uint32 accountId, std::string ip) override
     {
@@ -28,7 +30,9 @@ public:
 class IpTrackerWorldScript : public WorldScript
 {
 public:
-    IpTrackerWorldScript() : WorldScript("IpTracker") { }
+    IpTrackerWorldScript() : WorldScript("IpTracker", {
+        WORLDHOOK_ON_STARTUP
+    }) { }
 
     void OnStartup() override
     {
