@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS `account_ip` (
   `first_time` DATETIME NOT NULL COMMENT 'first time the account has logged with this ip',
   `last_time` DATETIME NOT NULL COMMENT 'last time the account has logged with this ip',
   PRIMARY KEY (`account`, `ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='mod-ip-tracker';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='mod-ip-tracker';
